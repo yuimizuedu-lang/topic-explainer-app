@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Topic Explainer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Topic Explainer</h1>
+      <p class="subtitle">Enter any topic and get a short explanation with key takeaways.</p>
+
+      <form method="POST" action="/generate">
+        <label for="topic">Topic</label>
+        <input
+          id="topic"
+          name="topic"
+          type="text"
+          value="{{ topic if topic else '' }}"
+          placeholder="Example: Artificial Intelligence"
+          required
+        />
+        <button type="submit">Generate</button>
+      </form>
+
+      {% if error %}
+      <div class="alert error">{{ error }}</div>
+      {% endif %}
+
+      {% if explanation %}
+      <div class="result-card">
+        <h2>Explanation</h2>
+        <p>{{ explanation }}</p>
+
+        <h3>Key Takeaways</h3>
+        <ul>
+          {% for item in takeaways %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
